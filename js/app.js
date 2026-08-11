@@ -441,6 +441,11 @@ class SalaryCalcApp {
         console.log(`   - i18n.currentLanguage: ${i18n.currentLanguage}`);
 
         // Build the key for the specific combination (e.g., enterSalaryPerMonthInUSD)
+        if (!this.selectedPeriod || !this.selectedCurrency) {
+            console.error('❌ Missing selectedPeriod or selectedCurrency');
+            return;
+        }
+
         const periodCapitalized = this.selectedPeriod.charAt(0).toUpperCase() + this.selectedPeriod.slice(1);
         const salaryLabelKey = `enterSalaryPer${periodCapitalized}In${this.selectedCurrency}`;
         const translation = i18n.getTranslation(salaryLabelKey);
@@ -448,10 +453,13 @@ class SalaryCalcApp {
         console.log(`   - translation: "${translation}"`);
 
         const labelEl = document.getElementById('salaryInputLabel');
-        if (labelEl) {
-            labelEl.textContent = translation;
-            console.log(`   - ✅ salaryInputLabel set to: "${translation}"`);
+        if (!labelEl) {
+            console.error('❌ salaryInputLabel element not found in DOM');
+            return;
         }
+
+        labelEl.textContent = translation || salaryLabelKey;
+        console.log(`   - ✅ salaryInputLabel set to: "${labelEl.textContent}"`);
 
         const inputEl = document.getElementById('salaryInput');
         if (inputEl) {
