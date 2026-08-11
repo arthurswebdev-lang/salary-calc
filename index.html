@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Salary Calculator for Armenia">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Salary Calc">
+    <title>Salary Calculator</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --background: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #9ca3af;
+            --border-color: #e5e7eb;
+            --light-blue: #f3f4f6;
+            --light-green: #f0fdf4;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background-color: var(--background);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 16px;
+            z-index: 1000;
+        }
+
+        .language-flags {
+            display: flex;
+            gap: 8px;
+        }
+
+        .flag-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+            opacity: 0.5;
+        }
+
+        .flag-btn.active {
+            opacity: 1;
+        }
+
+        .flag-btn:hover {
+            background-color: var(--light-blue);
+        }
+
+        .btn-header-back {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+            color: var(--text-primary);
+            margin-right: auto;
+        }
+
+        .btn-header-back:hover {
+            background-color: var(--light-blue);
+        }
+
+        /* Main Container */
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 50px;
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px 20px 20px;
+            animation: fadeIn 0.3s ease-in;
+            flex-direction: column;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        .page-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Home Page */
+        .page-home {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            max-width: 100%;
+        }
+
+
+        .select-text {
+            text-align: center;
+            font-size: 18px;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+
+
+        /* Work Type Pages */
+        .page-individual-entrepreneur,
+        .page-registered {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .btn-option-large {
+            background-color: var(--light-blue);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-option-large:hover {
+            background-color: #e5e7eb;
+            border-color: var(--text-primary);
+        }
+
+        .btn-option-large.active {
+            background-color: var(--text-primary);
+            color: var(--background);
+            border-color: var(--text-primary);
+        }
+
+        /* Salary Input */
+        .salary-input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .salary-input:focus {
+            outline: none;
+            border-color: var(--text-primary);
+            box-shadow: 0 0 0 2px rgba(31, 41, 55, 0.1);
+        }
+
+        /* Remove number input spinners */
+        .salary-input::-webkit-outer-spin-button,
+        .salary-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .salary-input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        /* Salary Results */
+        .result-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .currency-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 12px;
+            background-color: var(--background);
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .currency-select:focus {
+            outline: none;
+            border-color: var(--text-primary);
+        }
+
+        .salary-result-box {
+            background-color: var(--light-blue);
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .result-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .result-divider {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 12px 0;
+        }
+
+        .result-label-left {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .result-amount {
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 600;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        #grossMonthlySalary,
+        #grossYearlySalary {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        #resultCurrencyIcon,
+        #resultCurrencyIconYearly {
+            font-weight: 600;
+        }
+
+        /* Page Actions */
+        .page-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .btn-save {
+            background-color: var(--text-primary);
+            color: var(--background);
+            border: none;
+            padding: 14px 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-save:hover {
+            opacity: 0.9;
+        }
+
+        #saveSalary {
+            width: auto;
+            align-self: center;
+        }
+
+        .btn-cancel {
+            background-color: var(--light-blue);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+
+        .btn-cancel:hover {
+            background-color: #e5e7eb;
+        }
+
+        .btn-add-tax {
+            background-color: #f0fdf4;
+            color: var(--text-primary);
+            border: 1px solid #dcfce7;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .btn-add-tax:hover {
+            background-color: #dffcf0;
+        }
+
+        /* Taxes List */
+        .taxes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .tax-item {
+            background-color: var(--light-blue);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .tax-item:hover {
+            background-color: #e5e7eb;
+            border-color: var(--text-primary);
+        }
+
+        .tax-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .tax-item-label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .tax-item-type {
+            font-size: 12px;
+            color: var(--text-secondary);
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .tax-item-amounts {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .tax-amount-month,
+        .tax-amount-yearly {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tax-item-desc {
+            display: block;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Form Group */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--text-primary);
+            box-shadow: 0 0 0 2px rgba(31, 41, 55, 0.1);
+        }
+
+        /* Tax Details */
+        .tax-detail-summary {
+            background-color: var(--light-blue);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .tax-detail-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .tax-detail-info {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .tax-detail-description {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 12px;
+            font-style: italic;
+        }
+
+        .confirm-message {
+            background-color: var(--light-blue);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .btn-delete {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 14px 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-delete:hover {
+            opacity: 0.9;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .lang-flag-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            opacity: 0.5;
+        }
+
+        .lang-flag-btn:hover {
+            background-color: var(--light-blue);
+        }
+
+        .lang-flag-btn.active {
+            opacity: 1;
+            background-color: var(--light-blue);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 14px 16px;
+            background-color: var(--light-blue);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .nav-btn:hover {
+            background-color: #e5e7eb;
+            border-color: var(--text-primary);
+        }
+
+        .nav-btn-arrow {
+            float: right;
+            color: var(--text-secondary);
+        }
+
+        /* Todo Badge */
+        .todo-badge {
+            display: inline-block;
+            background-color: #fef3c7;
+            color: #92400e;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .page {
+                padding: 30px 16px;
+            }
+
+            .button-group {
+                width: 100%;
+            }
+
+            .btn {
+                padding: 14px 16px;
+                font-size: 15px;
+            }
+
+            .btn-icon {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .header {
+                padding: 0 12px;
+            }
+
+            .page {
+                padding: 24px 12px;
+                gap: 30px;
+            }
+
+            .select-text {
+                font-size: 16px;
+            }
+
+            .btn {
+                padding: 12px 14px;
+                font-size: 14px;
+                gap: 10px;
+            }
+
+            .btn-icon {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <button class="btn-header-back" id="headerBack" style="display: none;">← Back</button>
+        <div class="language-flags">
+            <button class="flag-btn" id="flagEn" data-lang="en" title="English">🇺🇸</button>
+            <button class="flag-btn" id="flagHy" data-lang="hy" title="Հայերեն">🇦🇲</button>
+            <button class="flag-btn" id="flagRu" data-lang="ru" title="Русский">🇷🇺</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Home Page -->
+        <div class="page page-home active" id="homePage">
+            <div class="select-text" data-i18n="selectWorkType">Select work type</div>
+
+            <div class="button-group">
+                <button class="btn btn-option-large" id="individualBtn">
+                    👤 <span data-i18n="individual">Individual Entrepreneur</span>
+                </button>
+
+                <button class="btn btn-option-large" id="registeredBtn">
+                    👨‍💼 <span data-i18n="registered">Registered Worker</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Currency Selection Page -->
+        <div class="page page-currency" id="currencyPage">
+            <div class="page-content">
+                <div class="select-text">Select currency</div>
+                <div class="button-group">
+                    <button class="btn btn-option-large" id="currencyRUB" data-currency="RUB">🇷🇺 RUB</button>
+                    <button class="btn btn-option-large" id="currencyUSD" data-currency="USD">🇺🇸 USD</button>
+                    <button class="btn btn-option-large" id="currencyAMD" data-currency="AMD">🇦🇲 AMD</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Salary Period Selection Page -->
+        <div class="page page-period" id="periodPage">
+            <div class="page-content">
+                <div class="select-text">Select salary per</div>
+                <div class="button-group">
+                    <button class="btn btn-option-large" id="periodHour" data-period="hour">⏰ Hour</button>
+                    <button class="btn btn-option-large" id="periodMonth" data-period="month">📅 Month</button>
+                    <button class="btn btn-option-large" id="periodYear" data-period="year">📊 Year</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Taxes Page (with Salary Input) -->
+        <div class="page page-taxes" id="taxesPage">
+            <div class="page-content">
+                <div class="select-text">Enter salary <span id="salaryPeriodLabel"></span> in <span id="salaryCurrencyLabel"></span></div>
+                <div style="width: 100%; max-width: 300px;">
+                    <input type="number" id="salaryInput" class="salary-input" placeholder="0" min="0" step="0.01">
+                </div>
+
+                <!-- Results Display -->
+                <div id="salaryResultsContainer" style="display: none; width: 100%; max-width: 300px; margin-top: 20px;">
+                    <div class="result-label">Show in currency</div>
+                    <select id="resultCurrencySelect" class="currency-select">
+                        <option value="RUB">RUB ($)</option>
+                        <option value="USD">USD ($)</option>
+                        <option value="AMD">AMD (֏)</option>
+                    </select>
+
+                    <div class="salary-result-box">
+                        <!-- Net Salary (Gross - Taxes) -->
+                        <div class="result-row">
+                            <div class="result-label-left">net monthly:</div>
+                            <div class="result-amount"><span id="netMonthlySalary">0</span> <span id="resultCurrencyIconNetMonthly">$</span></div>
+                        </div>
+                        <div class="result-row">
+                            <div class="result-label-left">net yearly:</div>
+                            <div class="result-amount"><span id="netYearlySalary">0</span> <span id="resultCurrencyIconNetYearly">$</span></div>
+                        </div>
+
+                        <div class="result-divider"></div>
+
+                        <!-- Gross Salary -->
+                        <div class="result-row">
+                            <div class="result-label-left">gross monthly:</div>
+                            <div class="result-amount"><span id="grossMonthlySalary">0</span> <span id="resultCurrencyIcon">$</span></div>
+                        </div>
+                        <div class="result-row">
+                            <div class="result-label-left">gross yearly:</div>
+                            <div class="result-amount"><span id="grossYearlySalary">0</span> <span id="resultCurrencyIconYearly">$</span></div>
+                        </div>
+
+                        <div class="result-divider"></div>
+
+                        <!-- Taxes -->
+                        <div class="result-row">
+                            <div class="result-label-left">monthly taxes:</div>
+                            <div class="result-amount"><span id="monthlyTaxes">0</span> <span id="resultCurrencyIconMonthlyTaxes">$</span></div>
+                        </div>
+                        <div class="result-row">
+                            <div class="result-label-left">yearly taxes:</div>
+                            <div class="result-amount"><span id="yearlyTaxes">0</span> <span id="resultCurrencyIconTaxes">$</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="select-text" style="margin-top: 20px;">Taxes</div>
+                <div class="taxes-list" id="taxesList"></div>
+                <button class="btn btn-add-tax" id="addTaxBtn">+ Add tax</button>
+            </div>
+        </div>
+
+        <!-- Add Tax - Type Selection -->
+        <div class="page page-add-tax-type" id="addTaxTypePage">
+            <div class="page-content">
+                <div class="select-text">Select tax type</div>
+                <div class="button-group">
+                    <button class="btn btn-option-large" id="taxTypeFixed" data-tax-type="fixed">💰 Fixed</button>
+                    <button class="btn btn-option-large" id="taxTypePercentage" data-tax-type="percentage">📊 Percentage</button>
+                </div>
+                <button class="btn" id="armenianTemplateBtn" style="margin-top: 15px; background-color: #6366f1; font-size: 13px; padding: 8px 12px;">📋 Use Armenian Template</button>
+            </div>
+        </div>
+
+        <!-- Add Tax - Pay Per Selection -->
+        <div class="page page-add-tax-payper" id="addTaxPayperPage">
+            <div class="page-content">
+                <div class="select-text">Pay per</div>
+                <div class="button-group">
+                    <button class="btn btn-option-large" id="taxPayperMonth" data-tax-payper="month">📅 Month</button>
+                    <button class="btn btn-option-large" id="taxPayperYear" data-tax-payper="year">📊 Year</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Tax - Currency Selection -->
+        <div class="page page-add-tax-currency" id="addTaxCurrencyPage">
+            <div class="page-content">
+                <div class="select-text">Select currency</div>
+                <div class="button-group">
+                    <button class="btn btn-option-large" id="taxCurrencyRUB" data-tax-currency="RUB">🇷🇺 RUB</button>
+                    <button class="btn btn-option-large" id="taxCurrencyUSD" data-tax-currency="USD">🇺🇸 USD</button>
+                    <button class="btn btn-option-large" id="taxCurrencyAMD" data-tax-currency="AMD">🇦🇲 AMD</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tax Details Page -->
+        <div class="page page-tax-details" id="taxDetailsPage">
+            <div class="page-content">
+                <div class="tax-detail-summary">
+                    <div class="tax-detail-label" id="taxDetailLabel"></div>
+                    <div class="tax-detail-info" id="taxDetailInfo"></div>
+                    <div class="tax-detail-description" id="taxDetailDescription"></div>
+                </div>
+
+                <div class="page-actions">
+                    <button class="btn btn-save" id="updateTaxBtn">Update</button>
+                    <button class="btn btn-delete" id="deleteTaxBtn">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tax Delete Confirmation Page -->
+        <div class="page page-tax-delete-confirm" id="taxDeleteConfirmPage">
+            <div class="page-content">
+                <div class="select-text">Delete tax?</div>
+                <div class="confirm-message">
+                    <div id="taxDeleteConfirmLabel"></div>
+                    <div style="font-size: 13px; color: var(--text-secondary); margin-top: 12px;">This action cannot be undone.</div>
+                </div>
+
+                <div class="page-actions" style="margin-top: 30px;">
+                    <button class="btn btn-cancel" id="cancelDeleteTaxBtn">Cancel</button>
+                    <button class="btn btn-delete" id="confirmDeleteTaxBtn">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registered Worker Page -->
+        <div class="page page-registered" id="registeredPage">
+            <div style="text-align: center; color: var(--text-secondary);">
+                TODO: Registered Worker
+            </div>
+        </div>
+
+        <!-- Add Tax - Label & Description -->
+        <div class="page page-add-tax-details" id="addTaxDetailsPage">
+            <div class="page-content">
+                <div class="select-text">Tax details</div>
+
+                <div class="language-selector">
+                    <button class="lang-flag-btn active" id="taxLangEn" data-lang="en">🇺🇸</button>
+                    <button class="lang-flag-btn" id="taxLangHy" data-lang="hy">🇦🇲</button>
+                    <button class="lang-flag-btn" id="taxLangRu" data-lang="ru">🇷🇺</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Label</label>
+                    <input type="text" id="taxLabelInput" class="form-input" placeholder="e.g., Income Tax" required>
+                </div>
+
+                <div class="form-group">
+                    <label id="taxAmountLabel">Amount</label>
+                    <input type="number" id="taxAmount" class="form-input" placeholder="0" min="0" step="0.01" max="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Description (Optional)</label>
+                    <input type="text" id="taxDescInput" class="form-input" placeholder="Optional description">
+                </div>
+            </div>
+            <div class="page-actions">
+                <button class="btn btn-cancel" id="cancelAddTax">Cancel</button>
+                <button class="btn btn-save" id="saveTax">Save</button>
+            </div>
+        </div>
+
+        <!-- Registered Worker Page -->
+        <div class="page page-registered" id="registeredPage">
+            <div style="text-align: center; color: var(--text-secondary);">
+                TODO: Registered Worker
+            </div>
+            <button class="btn btn-back" id="backFromRegistered">
+                ← <span data-i18n="back">Back</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
