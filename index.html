@@ -668,11 +668,11 @@
         <!-- Currency Selection Page -->
         <div class="page page-currency" id="currencyPage">
             <div class="page-content">
-                <div class="select-text">Select currency</div>
+                <div class="select-text" data-i18n="selectCurrency">Select currency</div>
                 <div class="button-group">
-                    <button class="btn btn-option-large" id="currencyRUB" data-currency="RUB">🇷🇺 RUB</button>
-                    <button class="btn btn-option-large" id="currencyUSD" data-currency="USD">🇺🇸 USD</button>
-                    <button class="btn btn-option-large" id="currencyAMD" data-currency="AMD">🇦🇲 AMD</button>
+                    <button class="btn btn-option-large" id="currencyRUB" data-currency="RUB" data-i18n="rub">🇷🇺 RUB</button>
+                    <button class="btn btn-option-large" id="currencyUSD" data-currency="USD" data-i18n="usd">🇺🇸 USD</button>
+                    <button class="btn btn-option-large" id="currencyAMD" data-currency="AMD" data-i18n="amd">🇦🇲 AMD</button>
                 </div>
             </div>
         </div>
@@ -682,9 +682,9 @@
             <div class="page-content">
                 <div class="select-text">Select salary per</div>
                 <div class="button-group">
-                    <button class="btn btn-option-large" id="periodHour" data-period="hour">⏰ Hour</button>
-                    <button class="btn btn-option-large" id="periodMonth" data-period="month">📅 Month</button>
-                    <button class="btn btn-option-large" id="periodYear" data-period="year">📊 Year</button>
+                    <button class="btn btn-option-large" id="periodHour" data-period="hour" data-i18n="hour">⏰ Hour</button>
+                    <button class="btn btn-option-large" id="periodMonth" data-period="month" data-i18n="month">📅 Month</button>
+                    <button class="btn btn-option-large" id="periodYear" data-period="year" data-i18n="year">📊 Year</button>
                 </div>
             </div>
         </div>
@@ -692,14 +692,14 @@
         <!-- Taxes Page (with Salary Input) -->
         <div class="page page-taxes" id="taxesPage">
             <div class="page-content">
-                <div class="select-text">Enter salary <span id="salaryPeriodLabel"></span> in <span id="salaryCurrencyLabel"></span></div>
+                <div class="select-text"><span data-i18n="enterSalary">Enter salary</span> <span id="salaryPeriodLabel"></span> <span data-i18n="in">in</span> <span id="salaryCurrencyLabel"></span></div>
                 <div style="width: 100%; max-width: 300px;">
                     <input type="number" id="salaryInput" class="salary-input" placeholder="0" min="0" step="0.01">
                 </div>
 
                 <!-- Results Display -->
                 <div id="salaryResultsContainer" style="display: none; width: 100%; max-width: 300px; margin-top: 20px;">
-                    <div class="result-label">Show in currency</div>
+                    <div class="result-label" data-i18n="showInCurrency">Show in currency</div>
                     <select id="resultCurrencySelect" class="currency-select">
                         <option value="RUB">RUB ($)</option>
                         <option value="USD">USD ($)</option>
@@ -709,11 +709,11 @@
                     <div class="salary-result-box">
                         <!-- Net Salary (Gross - Taxes) -->
                         <div class="result-row">
-                            <div class="result-label-left">net monthly:</div>
+                            <div class="result-label-left" data-i18n="netMonthly">net monthly:</div>
                             <div class="result-amount"><span id="netMonthlySalary">0</span> <span id="resultCurrencyIconNetMonthly">$</span></div>
                         </div>
                         <div class="result-row">
-                            <div class="result-label-left">net yearly:</div>
+                            <div class="result-label-left" data-i18n="netYearly">net yearly:</div>
                             <div class="result-amount"><span id="netYearlySalary">0</span> <span id="resultCurrencyIconNetYearly">$</span></div>
                         </div>
 
@@ -721,11 +721,11 @@
 
                         <!-- Gross Salary -->
                         <div class="result-row">
-                            <div class="result-label-left">gross monthly:</div>
+                            <div class="result-label-left" data-i18n="grossMonthly">gross monthly:</div>
                             <div class="result-amount"><span id="grossMonthlySalary">0</span> <span id="resultCurrencyIcon">$</span></div>
                         </div>
                         <div class="result-row">
-                            <div class="result-label-left">gross yearly:</div>
+                            <div class="result-label-left" data-i18n="grossYearly">gross yearly:</div>
                             <div class="result-amount"><span id="grossYearlySalary">0</span> <span id="resultCurrencyIconYearly">$</span></div>
                         </div>
 
@@ -733,29 +733,32 @@
 
                         <!-- Taxes -->
                         <div class="result-row">
-                            <div class="result-label-left">monthly taxes:</div>
+                            <div class="result-label-left" data-i18n="monthlyTaxes">monthly taxes:</div>
                             <div class="result-amount"><span id="monthlyTaxes">0</span> <span id="resultCurrencyIconMonthlyTaxes">$</span></div>
                         </div>
                         <div class="result-row">
-                            <div class="result-label-left">yearly taxes:</div>
+                            <div class="result-label-left" data-i18n="yearlyTaxes">yearly taxes:</div>
                             <div class="result-amount"><span id="yearlyTaxes">0</span> <span id="resultCurrencyIconTaxes">$</span></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="select-text" style="margin-top: 20px;">Taxes</div>
+                <div class="select-text" style="margin-top: 20px;" data-i18n="taxes">Taxes</div>
                 <div class="taxes-list" id="taxesList"></div>
-                <button class="btn btn-add-tax" id="addTaxBtn">+ Add tax</button>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-add-tax" id="addTaxBtn" data-i18n="addTax">+ Add tax</button>
+                    <button class="btn" id="armenianTemplateBtn" style="background-color: #6366f1; font-size: 13px; padding: 8px 12px;" data-i18n="useArmenianTemplate">📋 Use Armenian Template</button>
+                </div>
             </div>
         </div>
 
         <!-- Add Tax - Type Selection -->
         <div class="page page-add-tax-type" id="addTaxTypePage">
             <div class="page-content">
-                <div class="select-text">Select tax type</div>
+                <div class="select-text" data-i18n="selectTaxType">Select tax type</div>
                 <div class="button-group">
-                    <button class="btn btn-option-large" id="taxTypeFixed" data-tax-type="fixed">💰 Fixed</button>
-                    <button class="btn btn-option-large" id="taxTypePercentage" data-tax-type="percentage">📊 Percentage</button>
+                    <button class="btn btn-option-large" id="taxTypeFixed" data-tax-type="fixed" data-i18n="fixed">💰 Fixed</button>
+                    <button class="btn btn-option-large" id="taxTypePercentage" data-tax-type="percentage" data-i18n="percentage">📊 Percentage</button>
                 </div>
                 <button class="btn" id="armenianTemplateBtn" style="margin-top: 15px; background-color: #6366f1; font-size: 13px; padding: 8px 12px;">📋 Use Armenian Template</button>
             </div>
@@ -764,10 +767,10 @@
         <!-- Add Tax - Pay Per Selection -->
         <div class="page page-add-tax-payper" id="addTaxPayperPage">
             <div class="page-content">
-                <div class="select-text">Pay per</div>
+                <div class="select-text" data-i18n="payPer">Pay per</div>
                 <div class="button-group">
-                    <button class="btn btn-option-large" id="taxPayperMonth" data-tax-payper="month">📅 Month</button>
-                    <button class="btn btn-option-large" id="taxPayperYear" data-tax-payper="year">📊 Year</button>
+                    <button class="btn btn-option-large" id="taxPayperMonth" data-tax-payper="month" data-i18n="month">📅 Month</button>
+                    <button class="btn btn-option-large" id="taxPayperYear" data-tax-payper="year" data-i18n="year">📊 Year</button>
                 </div>
             </div>
         </div>
@@ -775,11 +778,11 @@
         <!-- Add Tax - Currency Selection -->
         <div class="page page-add-tax-currency" id="addTaxCurrencyPage">
             <div class="page-content">
-                <div class="select-text">Select currency</div>
+                <div class="select-text" data-i18n="selectCurrency">Select currency</div>
                 <div class="button-group">
-                    <button class="btn btn-option-large" id="taxCurrencyRUB" data-tax-currency="RUB">🇷🇺 RUB</button>
-                    <button class="btn btn-option-large" id="taxCurrencyUSD" data-tax-currency="USD">🇺🇸 USD</button>
-                    <button class="btn btn-option-large" id="taxCurrencyAMD" data-tax-currency="AMD">🇦🇲 AMD</button>
+                    <button class="btn btn-option-large" id="taxCurrencyRUB" data-tax-currency="RUB" data-i18n="rub">🇷🇺 RUB</button>
+                    <button class="btn btn-option-large" id="taxCurrencyUSD" data-tax-currency="USD" data-i18n="usd">🇺🇸 USD</button>
+                    <button class="btn btn-option-large" id="taxCurrencyAMD" data-tax-currency="AMD" data-i18n="amd">🇦🇲 AMD</button>
                 </div>
             </div>
         </div>
