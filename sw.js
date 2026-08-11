@@ -3,12 +3,16 @@
  * Enables the app to work offline and cache assets
  */
 
-const CACHE_NAME = 'salary-calc-v6';
+const CACHE_NAME = 'salary-calc-v7';
 const urlsToCache = [
     '/js/i18n.js',
     '/js/db.js',
     '/js/app.js',
-    '/manifest.json'
+    '/manifest.json',
+    '/icon-192.png',
+    '/icon-256.png',
+    '/icon-384.png',
+    '/icon-512.png'
 ];
 
 // Don't cache HTML - always fetch fresh to get latest app state
