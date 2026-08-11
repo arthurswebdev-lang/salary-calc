@@ -31,6 +31,52 @@ const translations = {
         payroll: 'Payroll & Employees',
         corporateTaxes: 'Corporate Taxes',
         financialReports: 'Financial Reports',
+
+        // Periods
+        hour: '⏰ Hour',
+        month: '📅 Month',
+        year: '📊 Year',
+
+        // Currencies
+        rub: 'RUB (₽)',
+        usd: 'USD ($)',
+        amd: 'AMD (֏)',
+
+        // Salary Input
+        enterSalary: 'Enter salary',
+        enterSalaryPer: 'Enter salary per',
+        in: 'in',
+
+        // Taxes
+        taxes: 'Taxes',
+        addTax: '+ Add tax',
+        selectTaxType: 'Select tax type',
+        fixed: '💰 Fixed',
+        percentage: '📊 Percentage',
+        payPer: 'Pay per',
+        selectCurrency: 'Select currency',
+
+        // Tax Form
+        label: 'Label',
+        description: 'Description',
+        amount: 'Amount',
+        percentageSymbol: 'Percentage (%)',
+        saveTax: 'Save',
+        updateTax: 'Update',
+        deleteTax: 'Delete',
+
+        // Results
+        showInCurrency: 'Show in currency',
+        netMonthly: 'net monthly:',
+        netYearly: 'net yearly:',
+        grossMonthly: 'gross monthly:',
+        grossYearly: 'gross yearly:',
+        monthlyTaxes: 'monthly taxes:',
+        yearlyTaxes: 'yearly taxes:',
+
+        // Template
+        useArmenianTemplate: '📋 Use Armenian Template',
+        confirmTemplate: 'Are you sure? This will add 6 Armenian taxes',
     },
 
     hy: {
@@ -59,6 +105,52 @@ const translations = {
         payroll: 'Պաշտոնային Ցուցակ & Աշխատողներ',
         corporateTaxes: 'Կորպորատիվ Հարկեր',
         financialReports: 'Ֆինանսական Հաշվետվություններ',
+
+        // Periods
+        hour: '⏰ Ժամ',
+        month: '📅 Ամիս',
+        year: '📊 Տարի',
+
+        // Currencies
+        rub: 'RUB (₽)',
+        usd: 'USD ($)',
+        amd: 'AMD (֏)',
+
+        // Salary Input
+        enterSalary: 'Մուտքագրեք պաշտոն',
+        enterSalaryPer: 'Մուտքագրեք պաշտոն հայտարարման',
+        in: 'մեջ',
+
+        // Taxes
+        taxes: 'Հարկեր',
+        addTax: '+ Ավելացնել հարկ',
+        selectTaxType: 'Ընտրեք հարկի տեսակը',
+        fixed: '💰 Ֆիքսված',
+        percentage: '📊 Տոկոս',
+        payPer: 'Վճարել ըստ',
+        selectCurrency: 'Ընտրեք արժույթ',
+
+        // Tax Form
+        label: 'Պիտակ',
+        description: 'Նկարագրություն',
+        amount: 'Գումար',
+        percentageSymbol: 'Տոկոս (%)',
+        saveTax: 'Պահել',
+        updateTax: 'Թարմացնել',
+        deleteTax: 'Ջնջել',
+
+        // Results
+        showInCurrency: 'Ցուցադրել արժույթով',
+        netMonthly: 'զուտ ամսական:',
+        netYearly: 'զուտ տարեկան:',
+        grossMonthly: 'համախառն ամսական:',
+        grossYearly: 'համախառն տարեկան:',
+        monthlyTaxes: 'ամսական հարկեր:',
+        yearlyTaxes: 'տարեկան հարկեր:',
+
+        // Template
+        useArmenianTemplate: '📋 Օգտագործել հայկական կաղապար',
+        confirmTemplate: 'Համաձայն՞ եք: Սա կավելացնի 6 հայկական հարկ',
     },
 
     ru: {
@@ -87,6 +179,52 @@ const translations = {
         payroll: 'Зарплата и сотрудники',
         corporateTaxes: 'Корпоративные налоги',
         financialReports: 'Финансовые отчеты',
+
+        // Periods
+        hour: '⏰ Час',
+        month: '📅 Месяц',
+        year: '📊 Год',
+
+        // Currencies
+        rub: 'RUB (₽)',
+        usd: 'USD ($)',
+        amd: 'AMD (֏)',
+
+        // Salary Input
+        enterSalary: 'Введите зарплату',
+        enterSalaryPer: 'Введите зарплату в размере',
+        in: 'в',
+
+        // Taxes
+        taxes: 'Налоги',
+        addTax: '+ Добавить налог',
+        selectTaxType: 'Выберите тип налога',
+        fixed: '💰 Фиксированный',
+        percentage: '📊 Процент',
+        payPer: 'Платить за',
+        selectCurrency: 'Выберите валюту',
+
+        // Tax Form
+        label: 'Название',
+        description: 'Описание',
+        amount: 'Сумма',
+        percentageSymbol: 'Процент (%)',
+        saveTax: 'Сохранить',
+        updateTax: 'Обновить',
+        deleteTax: 'Удалить',
+
+        // Results
+        showInCurrency: 'Показать в валюте',
+        netMonthly: 'чистый ежемесячно:',
+        netYearly: 'чистый ежегодно:',
+        grossMonthly: 'валовой ежемесячно:',
+        grossYearly: 'валовой ежегодно:',
+        monthlyTaxes: 'ежемесячные налоги:',
+        yearlyTaxes: 'ежегодные налоги:',
+
+        // Template
+        useArmenianTemplate: '📋 Использовать армянский шаблон',
+        confirmTemplate: 'Вы уверены? Это добавит 6 армянских налогов',
     }
 };
 
