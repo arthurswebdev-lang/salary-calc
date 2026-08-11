@@ -36,6 +36,9 @@ const translations = {
         hour: '⏰ Hour',
         month: '📅 Month',
         year: '📊 Year',
+        perHour: 'per hour',
+        perMonth: 'per month',
+        perYear: 'per year',
 
         // Currencies
         rub: 'RUB (₽)',
@@ -110,6 +113,9 @@ const translations = {
         hour: '⏰ Ժամ',
         month: '📅 Ամիս',
         year: '📊 Տարի',
+        perHour: 'ժամում',
+        perMonth: 'ամսում',
+        perYear: 'տարում',
 
         // Currencies
         rub: 'RUB (₽)',
@@ -184,6 +190,9 @@ const translations = {
         hour: '⏰ Час',
         month: '📅 Месяц',
         year: '📊 Год',
+        perHour: 'в час',
+        perMonth: 'в месяц',
+        perYear: 'в год',
 
         // Currencies
         rub: 'RUB (₽)',

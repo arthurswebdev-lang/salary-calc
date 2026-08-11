@@ -415,6 +415,13 @@ class SalaryCalcApp {
 
             document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
 
+            // Update period and currency labels
+            const periodKeys = { hour: 'perHour', month: 'perMonth', year: 'perYear' };
+            const salaryPeriodLabel = document.getElementById('salaryPeriodLabel');
+            if (salaryPeriodLabel && this.selectedPeriod) {
+                salaryPeriodLabel.textContent = i18n.getTranslation(periodKeys[this.selectedPeriod]);
+            }
+
             // Refresh taxes display with new language
             if (this.currentPage === 'taxes') {
                 this.displayTaxes();
@@ -426,8 +433,8 @@ class SalaryCalcApp {
      * Go to taxes page with salary input at top
      */
     goToTaxesPage() {
-        const periodLabels = { hour: 'per hour', month: 'per month', year: 'per year' };
-        document.getElementById('salaryPeriodLabel').textContent = periodLabels[this.selectedPeriod];
+        const periodKeys = { hour: 'perHour', month: 'perMonth', year: 'perYear' };
+        document.getElementById('salaryPeriodLabel').textContent = i18n.getTranslation(periodKeys[this.selectedPeriod]);
         document.getElementById('salaryCurrencyLabel').textContent = this.selectedCurrency;
         document.getElementById('salaryInput').value = this.salary || '';
         this.goToPage('taxes');
@@ -606,6 +613,9 @@ class SalaryCalcApp {
             console.log(`   Label: ${label}`);
 
             // Build type info (e.g., "25% M" or "1000 AMD Y")
+            // Support both 'value' (new) and 'amount' (old) field names
+            const taxValue = tax.value !== undefined ? tax.value : tax.amount;
+
             const payPerDisplay = tax.payPer ? (
                 tax.payPer === 'hour' ? 'H' :
                 tax.payPer === 'month' ? 'M' :
@@ -616,11 +626,11 @@ class SalaryCalcApp {
             let typeInfo = '';
 
             if (tax.type === 'percentage') {
-                typeInfo = `${tax.value}%${payPerDisplay ? ` ${payPerDisplay}` : ''}`;
+                typeInfo = `${taxValue}%${payPerDisplay ? ` ${payPerDisplay}` : ''}`;
                 console.log(`   Type: percentage → ${typeInfo}`);
             } else if (tax.type === 'fixed') {
                 const currencyIcon = currencyIcons[tax.currency] || tax.currency || '?';
-                typeInfo = `${tax.value} ${currencyIcon}${payPerDisplay ? ` ${payPerDisplay}` : ''}`;
+                typeInfo = `${taxValue} ${currencyIcon}${payPerDisplay ? ` ${payPerDisplay}` : ''}`;
                 console.log(`   Type: fixed → ${typeInfo}`);
             } else {
                 console.warn(`   ⚠️ Unknown type: ${tax.type}`);
