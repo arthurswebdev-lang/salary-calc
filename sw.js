@@ -3,7 +3,7 @@
  * Enables the app to work offline and cache assets
  */
 
-const CACHE_NAME = 'salary-calc-v5';
+const CACHE_NAME = 'salary-calc-v6';
 const urlsToCache = [
     '/js/i18n.js',
     '/js/db.js',
