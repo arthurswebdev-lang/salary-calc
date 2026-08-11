@@ -638,7 +638,11 @@ class SalaryCalcApp {
             const btn = document.createElement('button');
             btn.className = 'tax-item';
 
-            const label = tax.label?.[i18n.currentLanguage] || tax.label?.['en'] || 'Unnamed tax';
+            // Fallback to tax type translation if no label
+            let label = tax.label?.[i18n.currentLanguage] || tax.label?.['en'];
+            if (!label) {
+                label = i18n.getTranslation(tax.type); // Falls back to 'fixed' or 'percentage' translation
+            }
             console.log(`   Label: ${label}`);
 
             // Build type info (e.g., "25% M" or "1000 AMD Y")
@@ -668,8 +672,8 @@ class SalaryCalcApp {
             // Build compact display: "Label (type info)"
             btn.innerHTML = `
                 <div class="tax-item-header">
-                    <span class="tax-item-label">${label || 'No label'}</span>
-                    <span class="tax-item-type">${typeInfo || 'No type'}</span>
+                    <span class="tax-item-label">${label}</span>
+                    <span class="tax-item-type">${typeInfo}</span>
                 </div>
             `;
 
@@ -690,7 +694,11 @@ class SalaryCalcApp {
 
         this.viewingTaxId = taxId;
 
-        const label = tax.label[i18n.currentLanguage] || tax.label['en'] || 'Unnamed tax';
+        // Fallback to tax type translation if no label
+        let label = tax.label?.[i18n.currentLanguage] || tax.label?.['en'];
+        if (!label) {
+            label = i18n.getTranslation(tax.type); // Falls back to 'fixed' or 'percentage' translation
+        }
         const desc = tax.description?.[i18n.currentLanguage] || tax.description?.['en'] || '';
 
         // Build info based on type
