@@ -2,8 +2,8 @@
   "name": "Salary Calculator",
   "short_name": "Salary Calc",
   "description": "Calculate your salary for Individual Entrepreneurs and Registered Companies",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/salary-calc/",
+  "scope": "/salary-calc/",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#2563eb",
@@ -35,7 +35,7 @@
       "name": "Individual Entrepreneur",
       "short_name": "Entrepreneur",
       "description": "Calculate your salary as an individual entrepreneur",
-      "url": "/?start=individual",
+      "url": "/salary-calc/?start=individual",
       "icons": [
         {
           "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%2310b981' width='96' height='96'/><text x='48' y='65' font-size='50' text-anchor='middle' fill='white'>👤</text></svg>",
@@ -47,7 +47,7 @@
       "name": "Registered Company",
       "short_name": "Company",
       "description": "Calculate salary for a registered company",
-      "url": "/?start=registered",
+      "url": "/salary-calc/?start=registered",
       "icons": [
         {
           "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%232563eb' width='96' height='96'/><text x='48' y='65' font-size='50' text-anchor='middle' fill='white'>🏢</text></svg>",
