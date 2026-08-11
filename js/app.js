@@ -843,7 +843,7 @@ class SalaryCalcApp {
      */
     registerServiceWorker() {
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
+            navigator.serviceWorker.register('/salary-calc/sw.js')
                 .then(registration => {
                     console.log('Service Worker registered');
                 })
