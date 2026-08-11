@@ -9,7 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Salary Calc">
     <title>Salary Calculator</title>
-    <link rel="manifest" href="/salary-calc/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <style>
         * {
             margin: 0;
@@ -680,7 +680,7 @@
         <!-- Salary Period Selection Page -->
         <div class="page page-period" id="periodPage">
             <div class="page-content">
-                <div class="select-text">Select salary per</div>
+                <div class="select-text" data-i18n="selectSalaryPer">Select salary per</div>
                 <div class="button-group">
                     <button class="btn btn-option-large" id="periodHour" data-period="hour">⏰ Hour</button>
                     <button class="btn btn-option-large" id="periodMonth" data-period="month">📅 Month</button>
@@ -692,7 +692,7 @@
         <!-- Taxes Page (with Salary Input) -->
         <div class="page page-taxes" id="taxesPage">
             <div class="page-content">
-                <div class="select-text"><span data-i18n="enterSalary">Enter salary</span> <span id="salaryPeriodLabel"></span> <span data-i18n="in">in</span> <span id="salaryCurrencyLabel"></span></div>
+                <div class="select-text"><span id="salaryInputLabel">Enter salary per month in USD</span></div>
                 <div style="width: 100%; max-width: 300px;">
                     <input type="number" id="salaryInput" class="salary-input" placeholder="0" min="0" step="0.01">
                 </div>
@@ -747,7 +747,6 @@
                 <div class="taxes-list" id="taxesList"></div>
                 <div style="display: flex; gap: 10px;">
                     <button class="btn btn-add-tax" id="addTaxBtn" data-i18n="addTax">+ Add tax</button>
-                    <button class="btn" id="armenianTemplateBtn" style="background-color: #6366f1; font-size: 13px; padding: 8px 12px;" data-i18n="useArmenianTemplate">📋 Use Armenian Template</button>
                 </div>
             </div>
         </div>

@@ -45,10 +45,18 @@ const translations = {
         usd: 'USD ($)',
         amd: 'AMD (֏)',
 
-        // Salary Input
-        enterSalary: 'Enter salary',
-        enterSalaryPer: 'Enter salary per',
-        in: 'in',
+        // Salary Input - Specific combinations
+        enterSalaryPerHourInUSD: 'Enter salary per hour in USD',
+        enterSalaryPerHourInRUB: 'Enter salary per hour in RUB',
+        enterSalaryPerHourInAMD: 'Enter salary per hour in AMD',
+        enterSalaryPerMonthInUSD: 'Enter salary per month in USD',
+        enterSalaryPerMonthInRUB: 'Enter salary per month in RUB',
+        enterSalaryPerMonthInAMD: 'Enter salary per month in AMD',
+        enterSalaryPerYearInUSD: 'Enter salary per year in USD',
+        enterSalaryPerYearInRUB: 'Enter salary per year in RUB',
+        enterSalaryPerYearInAMD: 'Enter salary per year in AMD',
+
+        selectSalaryPer: 'Select salary per',
 
         // Taxes
         taxes: 'Taxes',
@@ -122,10 +130,18 @@ const translations = {
         usd: 'USD ($)',
         amd: 'AMD (֏)',
 
-        // Salary Input
-        enterSalary: 'Մուտքագրեք պաշտոն',
-        enterSalaryPer: 'Մուտքագրեք պաշտոն հայտարարման',
-        in: 'մեջ',
+        // Salary Input - Specific combinations
+        enterSalaryPerHourInUSD: 'Մուտքագրեք աշխատավարձ ժամում USD',
+        enterSalaryPerHourInRUB: 'Մուտքագրեք աշխատավարձ ժամում RUB',
+        enterSalaryPerHourInAMD: 'Մուտքագրեք աշխատավարձ ժամում AMD',
+        enterSalaryPerMonthInUSD: 'Մուտքագրեք աշխատավարձ ամսում USD',
+        enterSalaryPerMonthInRUB: 'Մուտքագրեք աշխատավարձ ամսում RUB',
+        enterSalaryPerMonthInAMD: 'Մուտքագրեք աշխատավարձ ամսում AMD',
+        enterSalaryPerYearInUSD: 'Մուտքագրեք աշխատավարձ տարում USD',
+        enterSalaryPerYearInRUB: 'Մուտքագրեք աշխատավարձ տարում RUB',
+        enterSalaryPerYearInAMD: 'Մուտքագրեք աշխատավարձ տարում AMD',
+
+        selectSalaryPer: 'Ընտրել աշխատավարձի չափը',
 
         // Taxes
         taxes: 'Հարկեր',
@@ -199,10 +215,18 @@ const translations = {
         usd: 'USD ($)',
         amd: 'AMD (֏)',
 
-        // Salary Input
-        enterSalary: 'Введите зарплату',
-        enterSalaryPer: 'Введите зарплату в размере',
-        in: 'в',
+        // Salary Input - Specific combinations
+        enterSalaryPerHourInUSD: 'Введите зарплату в час в USD',
+        enterSalaryPerHourInRUB: 'Введите зарплату в час в RUB',
+        enterSalaryPerHourInAMD: 'Введите зарплату в час в AMD',
+        enterSalaryPerMonthInUSD: 'Введите зарплату в месяц в USD',
+        enterSalaryPerMonthInRUB: 'Введите зарплату в месяц в RUB',
+        enterSalaryPerMonthInAMD: 'Введите зарплату в месяц в AMD',
+        enterSalaryPerYearInUSD: 'Введите зарплату в год в USD',
+        enterSalaryPerYearInRUB: 'Введите зарплату в год в RUB',
+        enterSalaryPerYearInAMD: 'Введите зарплату в год в AMD',
+
+        selectSalaryPer: 'Выберите размер оклада',
 
         // Taxes
         taxes: 'Налоги',
@@ -293,14 +317,26 @@ class I18n {
     }
 
     updateUI() {
+        console.log('🔄 updateUI called, currentLanguage:', this.currentLanguage);
+
         document.querySelectorAll('[data-i18n]').forEach(element => {
             const key = element.getAttribute('data-i18n');
             element.textContent = this.getTranslation(key);
         });
 
+        // Update the salary input label when language changes
+        const salaryInputLabel = document.getElementById('salaryInputLabel');
+        if (salaryInputLabel && window.app && window.app.selectedPeriod && window.app.selectedCurrency) {
+            const periodCapitalized = window.app.selectedPeriod.charAt(0).toUpperCase() + window.app.selectedPeriod.slice(1);
+            const salaryLabelKey = `enterSalaryPer${periodCapitalized}In${window.app.selectedCurrency}`;
+            const translation = this.getTranslation(salaryLabelKey);
+            salaryInputLabel.textContent = translation;
+            console.log(`✅ Updated salary input label to: ${translation}`);
+        }
+
         // Update HTML lang attribute
         document.documentElement.lang = this.currentLanguage;
-        console.log('UI updated for language:', this.currentLanguage);
+        console.log('✅ UI updated for language:', this.currentLanguage);
     }
 
     init() {

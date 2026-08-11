@@ -435,19 +435,29 @@ class SalaryCalcApp {
      * Go to taxes page with salary input at top
      */
     goToTaxesPage() {
-        const periodKeys = { hour: 'perHour', month: 'perMonth', year: 'perYear' };
         console.log(`📄 goToTaxesPage called:`);
         console.log(`   - selectedPeriod: ${this.selectedPeriod}`);
+        console.log(`   - selectedCurrency: ${this.selectedCurrency}`);
         console.log(`   - i18n.currentLanguage: ${i18n.currentLanguage}`);
-        console.log(`   - periodKeys[${this.selectedPeriod}]: ${periodKeys[this.selectedPeriod]}`);
 
-        const translation = i18n.getTranslation(periodKeys[this.selectedPeriod]);
+        // Build the key for the specific combination (e.g., enterSalaryPerMonthInUSD)
+        const periodCapitalized = this.selectedPeriod.charAt(0).toUpperCase() + this.selectedPeriod.slice(1);
+        const salaryLabelKey = `enterSalaryPer${periodCapitalized}In${this.selectedCurrency}`;
+        const translation = i18n.getTranslation(salaryLabelKey);
+        console.log(`   - salaryLabelKey: ${salaryLabelKey}`);
         console.log(`   - translation: "${translation}"`);
 
-        document.getElementById('salaryPeriodLabel').textContent = translation;
-        document.getElementById('salaryCurrencyLabel').textContent = this.selectedCurrency;
-        console.log(`   - ✅ Labels updated`);
-        document.getElementById('salaryInput').value = this.salary || '';
+        const labelEl = document.getElementById('salaryInputLabel');
+        if (labelEl) {
+            labelEl.textContent = translation;
+            console.log(`   - ✅ salaryInputLabel set to: "${translation}"`);
+        }
+
+        const inputEl = document.getElementById('salaryInput');
+        if (inputEl) {
+            inputEl.value = this.salary || '';
+        }
+
         this.goToPage('taxes');
         this.loadTaxes();
         this.updateSalaryResults();
