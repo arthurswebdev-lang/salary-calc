@@ -419,7 +419,9 @@ class SalaryCalcApp {
             const periodKeys = { hour: 'perHour', month: 'perMonth', year: 'perYear' };
             const salaryPeriodLabel = document.getElementById('salaryPeriodLabel');
             if (salaryPeriodLabel && this.selectedPeriod) {
-                salaryPeriodLabel.textContent = i18n.getTranslation(periodKeys[this.selectedPeriod]);
+                const translation = i18n.getTranslation(periodKeys[this.selectedPeriod]);
+                console.log(`🌍 Updating period label to ${lang}: ${periodKeys[this.selectedPeriod]} → "${translation}"`);
+                salaryPeriodLabel.textContent = translation;
             }
 
             // Refresh taxes display with new language
@@ -434,8 +436,17 @@ class SalaryCalcApp {
      */
     goToTaxesPage() {
         const periodKeys = { hour: 'perHour', month: 'perMonth', year: 'perYear' };
-        document.getElementById('salaryPeriodLabel').textContent = i18n.getTranslation(periodKeys[this.selectedPeriod]);
+        console.log(`📄 goToTaxesPage called:`);
+        console.log(`   - selectedPeriod: ${this.selectedPeriod}`);
+        console.log(`   - i18n.currentLanguage: ${i18n.currentLanguage}`);
+        console.log(`   - periodKeys[${this.selectedPeriod}]: ${periodKeys[this.selectedPeriod]}`);
+
+        const translation = i18n.getTranslation(periodKeys[this.selectedPeriod]);
+        console.log(`   - translation: "${translation}"`);
+
+        document.getElementById('salaryPeriodLabel').textContent = translation;
         document.getElementById('salaryCurrencyLabel').textContent = this.selectedCurrency;
+        console.log(`   - ✅ Labels updated`);
         document.getElementById('salaryInput').value = this.salary || '';
         this.goToPage('taxes');
         this.loadTaxes();
@@ -853,7 +864,7 @@ class SalaryCalcApp {
      */
     registerServiceWorker() {
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/salary-calc/sw.js')
+            navigator.serviceWorker.register('sw.js')
                 .then(registration => {
                     console.log('Service Worker registered');
                 })
