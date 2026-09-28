@@ -43,17 +43,21 @@ const translations = {
         // Currencies
         rub: 'RUB (₽)',
         usd: 'USD ($)',
+        eur: 'EUR (€)',
         amd: 'AMD (֏)',
 
         // Salary Input - Specific combinations
         enterSalaryPerHourInUSD: 'Enter salary per hour in USD',
         enterSalaryPerHourInRUB: 'Enter salary per hour in RUB',
+        enterSalaryPerHourInEUR: 'Enter salary per hour in EUR',
         enterSalaryPerHourInAMD: 'Enter salary per hour in AMD',
         enterSalaryPerMonthInUSD: 'Enter salary per month in USD',
         enterSalaryPerMonthInRUB: 'Enter salary per month in RUB',
+        enterSalaryPerMonthInEUR: 'Enter salary per month in EUR',
         enterSalaryPerMonthInAMD: 'Enter salary per month in AMD',
         enterSalaryPerYearInUSD: 'Enter salary per year in USD',
         enterSalaryPerYearInRUB: 'Enter salary per year in RUB',
+        enterSalaryPerYearInEUR: 'Enter salary per year in EUR',
         enterSalaryPerYearInAMD: 'Enter salary per year in AMD',
 
         selectSalaryPer: 'Select salary per',
@@ -128,17 +132,21 @@ const translations = {
         // Currencies
         rub: 'RUB (₽)',
         usd: 'USD ($)',
+        eur: 'EUR (€)',
         amd: 'AMD (֏)',
 
         // Salary Input - Specific combinations
         enterSalaryPerHourInUSD: 'Մուտքագրեք աշխատավարձ ժամում USD',
         enterSalaryPerHourInRUB: 'Մուտքագրեք աշխատավարձ ժամում RUB',
+        enterSalaryPerHourInEUR: 'Մուտքագրեք աշխատավարձ ժամում EUR',
         enterSalaryPerHourInAMD: 'Մուտքագրեք աշխատավարձ ժամում AMD',
         enterSalaryPerMonthInUSD: 'Մուտքագրեք աշխատավարձ ամսում USD',
         enterSalaryPerMonthInRUB: 'Մուտքագրեք աշխատավարձ ամսում RUB',
+        enterSalaryPerMonthInEUR: 'Մուտքագրեք աշխատավարձ ամսում EUR',
         enterSalaryPerMonthInAMD: 'Մուտքագրեք աշխատավարձ ամսում AMD',
         enterSalaryPerYearInUSD: 'Մուտքագրեք աշխատավարձ տարում USD',
         enterSalaryPerYearInRUB: 'Մուտքագրեք աշխատավարձ տարում RUB',
+        enterSalaryPerYearInEUR: 'Մուտքագրեք աշխատավարձ տարում EUR',
         enterSalaryPerYearInAMD: 'Մուտքագրեք աշխատավարձ տարում AMD',
 
         selectSalaryPer: 'Ընտրել աշխատավարձի չափը',
@@ -213,17 +221,21 @@ const translations = {
         // Currencies
         rub: 'RUB (₽)',
         usd: 'USD ($)',
+        eur: 'EUR (€)',
         amd: 'AMD (֏)',
 
         // Salary Input - Specific combinations
         enterSalaryPerHourInUSD: 'Введите зарплату в час в USD',
         enterSalaryPerHourInRUB: 'Введите зарплату в час в RUB',
+        enterSalaryPerHourInEUR: 'Введите зарплату в час в EUR',
         enterSalaryPerHourInAMD: 'Введите зарплату в час в AMD',
         enterSalaryPerMonthInUSD: 'Введите зарплату в месяц в USD',
         enterSalaryPerMonthInRUB: 'Введите зарплату в месяц в RUB',
+        enterSalaryPerMonthInEUR: 'Введите зарплату в месяц в EUR',
         enterSalaryPerMonthInAMD: 'Введите зарплату в месяц в AMD',
         enterSalaryPerYearInUSD: 'Введите зарплату в год в USD',
         enterSalaryPerYearInRUB: 'Введите зарплату в год в RUB',
+        enterSalaryPerYearInEUR: 'Введите зарплату в год в EUR',
         enterSalaryPerYearInAMD: 'Введите зарплату в год в AMD',
 
         selectSalaryPer: 'Выберите размер оклада',

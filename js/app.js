@@ -502,6 +502,7 @@ class SalaryCalcApp {
         const currencyIcons = {
             RUB: '₽',
             USD: '$',
+            EUR: '€',
             AMD: '֏'
         };
 
@@ -629,6 +630,7 @@ class SalaryCalcApp {
         const currencyIcons = {
             RUB: '₽',
             USD: '$',
+            EUR: '€',
             AMD: '֏'
         };
 
