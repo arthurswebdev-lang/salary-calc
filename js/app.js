@@ -468,7 +468,31 @@ class SalaryCalcApp {
 
         this.goToPage('taxes');
         this.loadTaxes();
+        this.updateExchangeRateDisplay();
         this.updateSalaryResults();
+    }
+
+    /**
+     * Show the AMD exchange rate for the currently selected input currency
+     */
+    updateExchangeRateDisplay() {
+        const rateInfo = document.getElementById('exchangeRateInfo');
+        const rateValue = document.getElementById('exchangeRateValue');
+        if (!rateInfo || !rateValue) return;
+
+        if (!this.selectedCurrency || this.selectedCurrency === 'AMD') {
+            rateInfo.style.display = 'none';
+            return;
+        }
+
+        const rate = this.exchangeRates.getRate(this.selectedCurrency, 'AMD', false);
+        if (!rate) {
+            rateInfo.style.display = 'none';
+            return;
+        }
+
+        rateValue.textContent = `1 ${this.selectedCurrency} = ${this.formatNumber(rate)} ֏`;
+        rateInfo.style.display = 'block';
     }
 
     /**

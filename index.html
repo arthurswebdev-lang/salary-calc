@@ -231,6 +231,12 @@
             font-weight: 500;
         }
 
+        .exchange-rate-info {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
         .currency-select {
             width: 100%;
             padding: 10px;
@@ -698,6 +704,9 @@
         <!-- Taxes Page (with Salary Input) -->
         <div class="page page-taxes" id="taxesPage">
             <div class="page-content">
+                <div class="exchange-rate-info" id="exchangeRateInfo" style="display: none;">
+                    <span data-i18n="exchangeRate">Exchange rate</span>: <span id="exchangeRateValue"></span>
+                </div>
                 <div class="select-text"><span id="salaryInputLabel">Enter salary per month in USD</span></div>
                 <div style="width: 100%; max-width: 300px;">
                     <input type="number" id="salaryInput" class="salary-input" placeholder="0" min="0" step="0.01">

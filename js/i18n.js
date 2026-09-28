@@ -61,6 +61,7 @@ const translations = {
         enterSalaryPerYearInAMD: 'Enter salary per year in AMD',
 
         selectSalaryPer: 'Select salary per',
+        exchangeRate: 'Exchange rate',
 
         // Taxes
         taxes: 'Taxes',
@@ -150,6 +151,7 @@ const translations = {
         enterSalaryPerYearInAMD: 'Մուտքագրեք աշխատավարձ տարում AMD',
 
         selectSalaryPer: 'Ընտրել աշխատավարձի չափը',
+        exchangeRate: 'Փոխարժեք',
 
         // Taxes
         taxes: 'Հարկեր',
@@ -239,6 +241,7 @@ const translations = {
         enterSalaryPerYearInAMD: 'Введите зарплату в год в AMD',
 
         selectSalaryPer: 'Выберите размер оклада',
+        exchangeRate: 'Курс обмена',
 
         // Taxes
         taxes: 'Налоги',
