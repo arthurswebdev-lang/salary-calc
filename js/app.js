@@ -16,8 +16,15 @@ class SalaryCalcApp {
 
         // Initialize exchange rates and calculator
         this.exchangeRates = new ExchangeRateManager();
-        this.exchangeRates.fetchRates();
         this.calculator = new SalaryCalculator(this.exchangeRates);
+        this.exchangeRates.fetchRates().then(() => {
+            // Rates load over the network, so refresh anything already on screen
+            // that depends on them (results and the rate display on the taxes page).
+            if (this.currentPage === 'taxes') {
+                this.updateExchangeRateDisplay();
+                this.updateSalaryResults();
+            }
+        });
 
         this.init();
     }

@@ -21,48 +21,46 @@ class ExchangeRateManager {
     }
 
     /**
-     * Fetch exchange rates from Ameriabank
-     * TODO: Implement actual API call or web scraping
-     * Currently returns mock data - replace with real implementation
+     * Fetch exchange rates.
+     *
+     * rates.json is generated periodically by .github/workflows/update-rates.yml,
+     * which scrapes https://ameriabank.am/en/exchange-rates (that site has no CORS
+     * headers, so the browser can't fetch it directly) and commits the parsed
+     * buy/sell rates to the repo. This method just reads that same-origin file.
+     * If it's missing or unreachable (e.g. first deploy before the workflow has
+     * run, or offline), the last-known hardcoded rates below are used instead.
      */
     async fetchRates() {
         try {
-            // TODO: Replace with actual API call to Ameriabank
-            // For now, returning cached rates
-            // Real implementation would fetch from: https://ameriabank.am/en/exchange-rates
+            console.log('📊 Fetching exchange rates from rates.json...');
 
-            console.log('📊 Fetching exchange rates from Ameriabank...');
+            const response = await fetch('rates.json', { cache: 'no-store' });
+            if (!response.ok) {
+                throw new Error(`rates.json request failed: ${response.status}`);
+            }
 
-            // Mock data - TODO: Replace with actual data
-            this.rates = {
-                USD: {
-                    buy: 363.50,
-                    sell: 368.50
-                },
-                EUR: {
-                    buy: 395.00,
-                    sell: 405.00
-                },
-                RUB: {
-                    buy: 3.80,
-                    sell: 4.20
-                },
-                GBP: {
-                    buy: 455.00,
-                    sell: 465.00
-                },
-                AMD: {
-                    buy: 1,
-                    sell: 1
-                }
-            };
+            const data = await response.json();
+            if (!data.rates) {
+                throw new Error('rates.json is missing the "rates" field');
+            }
 
-            this.lastUpdated = new Date();
-            console.log('✅ Exchange rates updated:', this.rates);
+            this.rates = { ...this.rates, ...data.rates };
+            this.lastUpdated = data.lastUpdated ? new Date(data.lastUpdated) : new Date();
+            console.log('✅ Exchange rates updated:', this.rates, 'as of', this.lastUpdated);
             return this.rates;
         } catch (error) {
-            console.error('❌ Error fetching exchange rates:', error);
-            return null;
+            console.warn('⚠️ Could not load rates.json, falling back to last-known rates:', error);
+
+            // Fallback rates, used only when rates.json can't be loaded
+            this.rates = {
+                USD: { buy: 363.50, sell: 368.50 },
+                EUR: { buy: 395.00, sell: 405.00 },
+                RUB: { buy: 3.80, sell: 4.20 },
+                GBP: { buy: 455.00, sell: 465.00 },
+                AMD: { buy: 1, sell: 1 }
+            };
+            this.lastUpdated = null;
+            return this.rates;
         }
     }
 

@@ -3,7 +3,7 @@
  * Enables the app to work offline and cache assets
  */
 
-const CACHE_NAME = 'salary-calc-v7';
+const CACHE_NAME = 'salary-calc-v8';
 const urlsToCache = [
     '/js/i18n.js',
     '/js/db.js',
@@ -17,6 +17,11 @@ const urlsToCache = [
 
 // Don't cache HTML - always fetch fresh to get latest app state
 const doNotCache = ['/index.html', '/'];
+
+// Exchange rates update periodically - always try the network first so
+// users see current rates while online, falling back to the last cached
+// copy when offline.
+const networkFirst = ['/rates.json'];
 
 // Install event - cache assets
 self.addEventListener('install', event => {
@@ -56,6 +61,7 @@ self.addEventListener('fetch', event => {
     // Check if this is an HTML file that shouldn't be cached
     const url = new URL(event.request.url);
     const shouldNotCache = doNotCache.some(path => url.pathname === path || url.pathname.endsWith('.html'));
+    const isNetworkFirst = networkFirst.some(path => url.pathname === path || url.pathname.endsWith(path));
 
     if (shouldNotCache) {
         // For HTML files, always try network first
@@ -64,6 +70,20 @@ self.addEventListener('fetch', event => {
                 // Fallback to cached version if offline
                 return caches.match('/index.html');
             })
+        );
+    } else if (isNetworkFirst) {
+        // Try the network first, cache successful responses, and fall back
+        // to the last cached copy (not the HTML shell) when offline.
+        event.respondWith(
+            fetch(event.request).then(response => {
+                if (response && response.status === 200) {
+                    const responseToCache = response.clone();
+                    caches.open(CACHE_NAME).then(cache => {
+                        cache.put(event.request, responseToCache);
+                    });
+                }
+                return response;
+            }).catch(() => caches.match(event.request))
         );
     } else {
         // For other files, use cache-first strategy
