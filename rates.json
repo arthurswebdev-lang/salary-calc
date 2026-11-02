@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-02T03:51:26.525Z",
+  "lastUpdated": "2026-11-02T14:29:24.893Z",
   "source": "https://ameriabank.am/en/exchange-rates",
   "rateType": "non-cash",
   "rates": {
@@ -8,12 +8,12 @@
       "sell": 362.5
     },
     "EUR": {
-      "buy": 395.5,
-      "sell": 409.5
+      "buy": 397.5,
+      "sell": 411.5
     },
     "GBP": {
-      "buy": 472,
-      "sell": 492
+      "buy": 474,
+      "sell": 494
     },
     "RUB": {
       "buy": 4.33,
